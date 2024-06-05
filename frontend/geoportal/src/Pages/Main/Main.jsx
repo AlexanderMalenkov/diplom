@@ -1,30 +1,29 @@
 import React from "react";
-import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import styles from "./Main.module.css";
+import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
+import { Stack } from "@mui/material";
 
-const Main = () => {
-  const position = [51.505, -0.09];
+export const Main = () => {
   return (
-    <MapContainer
-      zoom={13}
-      center={position}
-      scrollWheelZoom={true}
-      style={{
-        width: "inherit",
-        height: "inherit",
-      }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    </MapContainer>
+    <div className={styles.mainWrapper}>
+      <div className={styles.mainContent}>
+        <Stack>
+          <h1 className={styles.mainTitle}>
+            Геопортал для моделирования жилищного фонда района Отрадное
+          </h1>
+          <DefaultButton
+            sx={{
+              width: "30vw",
+              marginTop: "48px",
+              fontSize: "22px",
+              padding: "24px",
+              borderRadius: "100px",
+            }}
+          >
+            На карту
+          </DefaultButton>
+        </Stack>
+      </div>
+    </div>
   );
 };
-
-export default Main;

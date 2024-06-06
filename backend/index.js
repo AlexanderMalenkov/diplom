@@ -18,6 +18,11 @@ const PORT = 9000;
 // подключение bodyParser
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
+
 // Запуск сервера
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);

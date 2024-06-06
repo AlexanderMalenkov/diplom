@@ -1,0 +1,1 @@
+export const districtCoordinates = [55.862060, 37.600262]

@@ -127,3 +127,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.leaflet-control-attribution.leaflet-control {
+  display: none !important;
+}
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  display: none;
+}

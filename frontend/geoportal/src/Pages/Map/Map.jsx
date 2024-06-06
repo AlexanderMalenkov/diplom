@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
-
 import { StandartSwitch } from "../../UI-kit/Switch/StandartSwitch";
-
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Popup,
-  Polyline,
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
+import L from "leaflet";
 import styles from "./Map.module.css";
-
 import { districtCoordinates } from "../../Utils/contstants";
-
 import districtBorders from "../../Utils/otradnoe.geojsonl.json";
+
+import icon from "../../Assets/Icon.svg";
 
 export const Map = () => {
   const currentBorders = districtBorders?.geometry?.coordinates[0][0]?.map(
@@ -37,7 +28,13 @@ export const Map = () => {
 
   const [pointsData, setPointsData] = useState(null);
 
-  console.log(pointsData);
+  const defIcon = new L.Icon({
+    iconUrl: icon,
+    iconSize: [32, 32],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
 
   return (
     <Box
@@ -46,6 +43,10 @@ export const Map = () => {
         height: "100vh",
       }}
     >
+      <Box className={styles.previewPoint}>
+        <h2 className={styles.layersControlTitle}>Предпросмотр объекта</h2>
+        <h3></h3>
+      </Box>
       <Box className={styles.layersControl}>
         <h2 className={styles.layersControlTitle}>
           Инструмент управления слоями
@@ -102,6 +103,15 @@ export const Map = () => {
               checked={isCian}
               onChange={() => {
                 setIsCian((prev) => !prev);
+                if (!isCian) {
+                  fetch("http://localhost:9000/objects-cian")
+                    .then((response) => response.json())
+                    .then((data) => {
+                      setPointsData(data);
+                    });
+                } else {
+                  setPointsData(null);
+                }
               }}
               inputProps={{ "aria-label": "controlled" }}
             />
@@ -203,7 +213,15 @@ export const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {pointsData?.map((point) => (
-          <Marker position={point?.coords} />
+          <Marker
+            position={point?.coords}
+            icon={defIcon}
+            eventHandlers={{
+              click: (e) => {
+                console.log(point);
+              },
+            }}
+          />
         ))}
         {isCurrentBorders && (
           <Polyline

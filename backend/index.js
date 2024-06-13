@@ -82,7 +82,7 @@ app.get('/objects-sob', async (req, res) => {
 
 app.get('/objects-youla', async (req, res) => {
   try {
-    const response = await fetch(`https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=6`);
+    const response = await fetch(`https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Владыкино&metro=Отрадное&source=6`);
     if (response.ok) {
       const data = await response.json();
       res.json(data?.data);

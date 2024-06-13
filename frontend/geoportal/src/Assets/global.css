@@ -135,3 +135,7 @@ table {
 .leaflet-control-zoom.leaflet-bar.leaflet-control {
   display: none;
 }
+
+html::-webkit-scrollbar {
+  width: 0 !important;
+}

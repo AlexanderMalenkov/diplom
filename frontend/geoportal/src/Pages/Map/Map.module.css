@@ -5,6 +5,7 @@
   z-index: 1000;
   right: 0;
   width: 350px;
+  height: 100vh;
   background-color: #efe9e0;
   padding: 16px;
   border-bottom-left-radius: 16px;
@@ -19,6 +20,17 @@
   color: #211f19;
   text-align: left;
   font-size: 18px;
+}
+
+.layersControlSubTitle {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  line-height: 14px;
+  font-style: normal;
+  color: #211f19;
+  text-align: left;
+  font-size: 14px;
 }
 
 .layersControlLabel {

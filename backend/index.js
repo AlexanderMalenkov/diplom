@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 //подключение живого апи (по умолчанию указываем москву и метро отрадное!)
 app.get('/objects-avito', async (req, res) => {
   try {
-    const response = await fetch(`https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=1`);
+    const response = await fetch(req?._parsedUrl?.search ? `https://ads-api.ru/main/api${req?._parsedUrl?.search}&user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=1` : `https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=1`);
     if (response.ok) {
       const data = await response.json();
       res.json(data?.data);
@@ -52,7 +52,8 @@ app.get('/objects-avito', async (req, res) => {
 
 app.get('/objects-cian', async (req, res) => {
   try {
-    const response = await fetch(`https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=4`);
+    console.log(req?._parsedUrl?.search ? `https://ads-api.ru/main/api${req?._parsedUrl?.search}&user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=4` : `https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=4`)
+    const response = await fetch(req?._parsedUrl?.search ? `https://ads-api.ru/main/api${req?._parsedUrl?.search}&user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=4` : `https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=4`);
     if (response.ok) {
       const data = await response.json();
       res.json(data?.data);
@@ -67,7 +68,7 @@ app.get('/objects-cian', async (req, res) => {
 
 app.get('/objects-sob', async (req, res) => {
   try {
-    const response = await fetch(`https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=5`);
+    const response = await fetch(req?._parsedUrl?.search ? `https://ads-api.ru/main/api${req?._parsedUrl?.search}&user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=5&` : `https://ads-api.ru/main/api?user=${login}&token=${access_token}&city=Москва&metro=Отрадное&source=5`);
     if (response.ok) {
       const data = await response.json();
       res.json(data?.data);

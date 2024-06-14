@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, TextField } from "@mui/material";
 import { StandartSwitch } from "../../UI-kit/Switch/StandartSwitch";
 import { MapContainer, Marker, TileLayer, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -10,10 +10,20 @@ import districtBorders from "../../Utils/otradnoe.geojsonl.json";
 import CloseIcon from "@mui/icons-material/Close";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { keyframes } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Slider from "@mui/material/Slider";
 
 import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 
 import icon from "../../Assets/Icon.svg";
+import blueIcon from "../../Assets/IconBlue.svg";
+import blackIcon from "../../Assets/IconBlack.svg";
 
 export const Map = () => {
   const currentBorders = districtBorders?.geometry?.coordinates[0][0]?.map(
@@ -22,6 +32,14 @@ export const Map = () => {
     }
   );
 
+  // const area = currentBorders
+  //   ?.map((item, index) => {
+  //     return `area[${index}][lat]=${item[1]}&area[${index}][lng]=${item[0]}&`;
+  //   })
+  //   .join("");
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000000);
   const slideOutRight = keyframes` 
     from {
       transform: translateX(-200%);
@@ -33,7 +51,7 @@ export const Map = () => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const [isCurrentBorders, setIsCurrentBorders] = useState(true);
+  const [isCurrentBorders, setIsCurrentBorders] = useState(false);
 
   const [isAvito, setIsAvito] = useState(false);
   const [isCian, setIsCian] = useState(false);
@@ -47,6 +65,22 @@ export const Map = () => {
 
   const defIcon = new L.Icon({
     iconUrl: icon,
+    iconSize: [32, 32],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const avitoIcon = new L.Icon({
+    iconUrl: blueIcon,
+    iconSize: [32, 32],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const darkIcon = new L.Icon({
+    iconUrl: blackIcon,
     iconSize: [32, 32],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
@@ -182,118 +216,202 @@ export const Map = () => {
       </Stack>
       <Box className={styles.layersControl}>
         <h2 className={styles.layersControlTitle}>
-          Инструмент управления слоями
+          Инструмент управления картой
         </h2>
-        <Box
+        <Accordion
           sx={{
-            paddingTop: "16px",
-            paddingBottom: "16px",
+            marginTop: " 32px",
           }}
+          aria-controls="panel1-content"
+          id="panel1-header"
         >
-          <Stack direction="row" alignItems="center">
-            <StandartSwitch
-              checked={isCurrentBorders}
-              onChange={() => {
-                setIsCurrentBorders((prev) => !prev);
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <h3 className={styles.layersControlSubTitle}>Тематические слои</h3>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box
+              sx={{
+                paddingTop: "16px",
+                paddingBottom: "16px",
               }}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-            <p className={styles.layersControlLabel}>Границы района</p>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-              marginTop: "8px",
-            }}
-          >
-            <StandartSwitch
-              checked={isAvito}
-              onChange={() => {
-                if (!isAvito) {
-                  fetch("http://localhost:9000/objects-avito")
-                    .then((response) => response.json())
-                    .then((data) => {
-                      setAvitoPointsData(data);
-                      setIsAvito((prev) => !prev);
-                    });
-                } else {
-                  setAvitoPointsData(null);
-                  setIsAvito(false);
-                }
+            >
+              <Stack direction="row" alignItems="center">
+                <StandartSwitch
+                  checked={isCurrentBorders}
+                  onChange={() => {
+                    setIsCurrentBorders((prev) => !prev);
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p className={styles.layersControlLabel}>Границы района</p>
+              </Stack>
+              <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                  marginTop: "8px",
+                }}
+              >
+                <StandartSwitch
+                  checked={isAvito}
+                  onChange={() => {
+                    if (!isAvito) {
+                      fetch(
+                        `http://localhost:9000/objects-avito?price1=${minPrice}&price2=${maxPrice}`
+                      )
+                        .then((response) => response.json())
+                        .then((data) => {
+                          setAvitoPointsData(data);
+                          setIsAvito((prev) => !prev);
+                        });
+                    } else {
+                      setAvitoPointsData(null);
+                      setIsAvito(false);
+                    }
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p className={styles.layersControlLabel}>Объекты avito.ru</p>
+              </Stack>
+              <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                  marginTop: "8px",
+                }}
+              >
+                <StandartSwitch
+                  checked={isCian}
+                  onChange={() => {
+                    if (!isCian) {
+                      fetch(
+                        `http://localhost:9000/objects-cian?price1=${minPrice}&price2=${maxPrice}`
+                      )
+                        .then((response) => response.json())
+                        .then((data) => {
+                          setCianPointsData(data);
+                          setIsCian((prev) => !prev);
+                        });
+                    } else {
+                      setCianPointsData(null);
+                      setIsCian(false);
+                    }
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p className={styles.layersControlLabel}>Объекты cian.ru</p>
+              </Stack>
+              <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                  marginTop: "8px",
+                }}
+              >
+                <StandartSwitch
+                  checked={sob}
+                  onChange={() => {
+                    if (!sob) {
+                      fetch("http://localhost:9000/objects-sob")
+                        .then((response) => response.json())
+                        .then((data) => {
+                          setIsSob((prev) => !prev);
+                          setSobPointsData(data);
+                        });
+                    } else {
+                      setSobPointsData(null);
+                      setIsSob(false);
+                    }
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p className={styles.layersControlLabel}>Объекты sob.ru</p>
+              </Stack>
+              <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                  marginTop: "8px",
+                }}
+              >
+                <StandartSwitch
+                  onChange={() => {
+                    setCianAnalyze((prev) => !prev);
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p className={styles.layersControlLabel}>
+                  Анализ объектов cian.ru
+                </p>
+              </Stack>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          sx={{
+            marginTop: " 32px",
+          }}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <h3 className={styles.layersControlSubTitle}>Фильтры</h3>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box
+              sx={{
+                paddingTop: "16px",
+                paddingBottom: "16px",
               }}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-            <p className={styles.layersControlLabel}>Объекты avito.ru</p>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-              marginTop: "8px",
-            }}
-          >
-            <StandartSwitch
-              checked={isCian}
-              onChange={() => {
-                if (!isCian) {
-                  fetch("http://localhost:9000/objects-cian")
-                    .then((response) => response.json())
-                    .then((data) => {
-                      setCianPointsData(data);
-                      setIsCian((prev) => !prev);
-                    });
-                } else {
-                  setCianPointsData(null);
-                  setIsCian(false);
-                }
-              }}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-            <p className={styles.layersControlLabel}>Объекты cian.ru</p>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-              marginTop: "8px",
-            }}
-          >
-            <StandartSwitch
-              checked={sob}
-              onChange={() => {
-                if (!sob) {
-                  fetch("http://localhost:9000/objects-sob")
-                    .then((response) => response.json())
-                    .then((data) => {
-                      setIsSob((prev) => !prev);
-                      setSobPointsData(data);
-                    });
-                } else {
-                  setSobPointsData(null);
-                  setIsSob(false);
-                }
-              }}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-            <p className={styles.layersControlLabel}>Объекты sob.ru</p>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-              marginTop: "8px",
-            }}
-          >
-            <StandartSwitch
-              onChange={() => {
-                setCianAnalyze((prev) => !prev);
-              }}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-            <p className={styles.layersControlLabel}>Анализ объектов cian.ru</p>
-          </Stack>
-        </Box>
+            >
+              <p className={styles.layersControlLabel}>Цена, ₽</p>
+              <Stack
+                direction="row"
+                gap="16px"
+                sx={{
+                  marginTop: "16px",
+                  marginBottom: "32px",
+                }}
+              >
+                <TextField variant="outlined" label="От" name="min" />
+                <TextField
+                  variant="outlined"
+                  label="До"
+                  name="max"
+                  onChange={(e) => {
+                    setMaxPrice(e.target.value);
+                  }}
+                />
+              </Stack>
+              <p className={styles.layersControlLabel}>Тип объявлений</p>
+              <FormGroup
+                sx={{
+                  marginTop: "16px",
+                  marginBottom: "16px",
+                }}
+              >
+                <FormControlLabel control={<Checkbox />} label="Продам" />
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="Сдам"
+                />
+                <FormControlLabel control={<Checkbox />} label="Куплю" />
+                <FormControlLabel control={<Checkbox />} label="Сниму" />
+              </FormGroup>
+              <p className={styles.layersControlLabel}>
+                Расстояние от метро, км.
+              </p>
+              <Slider
+                min={0}
+                step={1}
+                max={10}
+                valueLabelDisplay="auto"
+                aria-labelledby="non-linear-slider"
+              />
+            </Box>
+          </AccordionDetails>
+        </Accordion>
       </Box>
       {cianAvalyze && (
         <Stack
@@ -366,7 +484,7 @@ export const Map = () => {
         {avitoPointsData?.map((point) => (
           <Marker
             position={point?.coords}
-            icon={defIcon}
+            icon={avitoIcon}
             eventHandlers={{
               click: (e) => {
                 setIsDrawerOpen(true);
@@ -390,7 +508,7 @@ export const Map = () => {
         {sobPointsData?.map((point) => (
           <Marker
             position={point?.coords}
-            icon={defIcon}
+            icon={darkIcon}
             eventHandlers={{
               click: (e) => {
                 setIsDrawerOpen(true);
@@ -402,7 +520,7 @@ export const Map = () => {
         {isCurrentBorders && (
           <Polyline
             pathOptions={{
-              color: "red",
+              color: "#B8533B",
             }}
             positions={currentBorders}
           />

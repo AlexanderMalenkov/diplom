@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./Main.module.css";
 import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 import { Stack } from "@mui/material";
+import { keyframes } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const navigate = useNavigate();
+
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.mainContent}>

@@ -25,6 +25,7 @@ import icon from "../../Assets/Icon.svg";
 import blueIcon from "../../Assets/IconBlue.svg";
 import blackIcon from "../../Assets/IconBlack.svg";
 
+import { VectorLayer } from "./VectorLayer";
 export const Map = () => {
   const currentBorders = districtBorders?.geometry?.coordinates[0][0]?.map(
     (coordinates) => {
@@ -477,10 +478,10 @@ export const Map = () => {
           height: "inherit",
         }}
       >
-        <TileLayer
+        {/* <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        /> */}
         {avitoPointsData?.map((point) => (
           <Marker
             position={point?.coords}
@@ -525,6 +526,7 @@ export const Map = () => {
             positions={currentBorders}
           />
         )}
+        <VectorLayer />
       </MapContainer>
     </Box>
   );

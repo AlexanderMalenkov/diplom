@@ -34,6 +34,12 @@ app.get('/', (req, res) => {
 });
 
 
+app.get('/list', async (req, res) => {
+  res.json({
+    data: 'sss'
+  });
+});
+
 //подключение живого апи (по умолчанию указываем москву и метро отрадное!)
 app.get('/objects-avito', async (req, res) => {
   try {

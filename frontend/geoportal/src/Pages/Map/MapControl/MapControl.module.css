@@ -1,26 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-.mainButton {
-  font-family: "Montserrat", sans-serif !important;
-  width: 50% !important;
-  margin-top: 48px !important;
-  font-size: 18px !important;
-  padding: 24px !important;
-  border-radius: 16px !important;
-}
-
-.drawer {
+.layersControl {
   position: absolute;
-  z-index: 10000;
-  height: 100vh;
-  left: 0;
-  top: 0;
+  z-index: 1000;
+  right: 12px;
+  top: 12px;
+  bottom: 12px;
   width: 350px;
+  height: calc(100vh - 64px);
   background-color: #efe9e0;
-  padding: 0;
+  padding: 16px;
+  border: 2px #b8533b solid;
+  border-radius: 1px;
 }
 
-.drawerTitle {
+.layersControlTitle {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -31,26 +25,24 @@
   font-size: 18px;
 }
 
-.drawerSubTitle {
+.layersControlSubTitle {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-  line-height: 16px;
+  line-height: 14px;
   font-style: normal;
   color: #211f19;
   text-align: left;
   font-size: 14px;
 }
 
-.drawerText {
+.layersControlLabel {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 14px;
   font-style: normal;
   color: #211f19;
   text-align: left;
-  font-size: 14px;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  font-size: 16px;
 }

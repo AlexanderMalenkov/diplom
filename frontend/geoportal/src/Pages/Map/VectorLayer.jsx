@@ -6,7 +6,6 @@ export const VectorLayer = () => {
   const map = useMap();
 
   useEffect(() => {
-    console.log(map)
     const mtLayer = new MaptilerLayer({
         // Get your free API key at https://cloud.maptiler.com
         apiKey: "S7QZTbs5XJzmMea03Xm8",

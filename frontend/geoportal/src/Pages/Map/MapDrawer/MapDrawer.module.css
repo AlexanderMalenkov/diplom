@@ -10,12 +10,14 @@
   .drawer {
     position: absolute;
     z-index: 10000;
-    height: 100vh;
-    left: 0;
-    top: 0;
+    height: 50vh;
+    left: 12px;
+    top: 12px;
     width: 350px;
     background-color: #efe9e0;
     padding: 0;
+    border-radius: 1px;
+    border: 2px #b8533b solid;
   }
   
   .drawerTitle {
@@ -32,7 +34,7 @@
   .drawerSubTitle {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 16px;
     font-style: normal;
     color: #211f19;

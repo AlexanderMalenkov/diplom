@@ -1,112 +1,174 @@
-import React from 'react';
-import styles from './MapDrawer.module.css';
-import { Stack, Box } from '@mui/material';
-import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
+import React from "react";
+import styles from "./MapDrawer.module.css";
+import { Stack, Box, keyframes } from "@mui/material";
+import { DefaultButton } from "../../../UI-kit/Button/DefaultButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const MapDrawer = ({currentPoint, isDrawerOpen, handleClose}) => {
-
+const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose }) => {
+  console.log(currentPoint);
+  const slideOutRight = keyframes` 
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}`;
   return (
     <Stack
-    className={styles.drawer}
-    sx={{
-      transform: isDrawerOpen ? "translateX(0%)" : "translateX(-200%)",
-    //   animation: isDrawerOpen ? `${slideOutRight} 0.5s` : "",
-    }}
-  >
-    <Stack
+      className={styles.drawer}
       sx={{
-        width: "100%",
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
+        display: isDrawerOpen ? "flex" : "none",
       }}
+      //   sx={{
+      //     transform: isDrawerOpen ? "translateX(-200%)" : "translateX(0%)",
+      //     animation: isDrawerOpen ? `${slideOutRight} 0.5s` : "",
+      //   }}
     >
       <Stack
         sx={{
-          padding: "6px",
+          width: "100%",
         }}
       >
-        <CloseIcon
-          onClick={() => {
-            handleClose();
-          }}
-        />
-      </Stack>
-      <Stack
-        sx={{
-          padding: "16px",
-        }}
-        k
-      >
-        <h2 className={styles.drawerTitle}>{currentPoint?.title}</h2>
-        <p className={styles.drawerText}>{currentPoint?.description}</p>
-
-        <Box
+        <Stack
           sx={{
-            borderRadius: "16px",
-            width: "300px",
-            height: "300px",
-            background: `url(${currentPoint?.images[0]?.imgurl})  lightgray 50% / cover no-repeat`,
-          }}
-        />
-        <Box
-          sx={{
-            marginTop: "16px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
+            padding: "6px",
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "end",
           }}
         >
-          <h1 className={styles.drawerSubTitle}>
-            Расстояние до метро:{" "}
-            <span
-              style={{
-                fontWeight: 800,
-              }}
-            >
-              {currentPoint?.km_do_metro} км
-            </span>
-          </h1>
-          <h1 className={styles.drawerSubTitle}>
-            Этаж:{" "}
-            <span
-              style={{
-                fontWeight: 800,
-              }}
-            >
-              {currentPoint?.["params"]["Этаж"]}/
-              {currentPoint?.["params"]["Этажей в доме"]}
-            </span>
-          </h1>
-          <h1 className={styles.drawerSubTitle}>
-            Источник: {currentPoint?.source}
-          </h1>
-        </Box>
+          <CloseIcon
+            sx={{
+              marginRight: "12px",
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              handleClose();
+            }}
+          />
+        </Stack>
+        <Stack
+          sx={{
+            padding: "16px",
+          }}
+        >
+          <h2 className={styles.drawerTitle}>
+            Объект № {currentPoint?.kadastr_number}
+          </h2>
+          <p className={styles.drawerText}>{currentPoint?.address}</p>
+
+          <Box
+            sx={{
+              marginTop: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
+            <h1 className={styles.drawerSubTitle}>
+              Кадастровая стоимость:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.kadastr_cost} ₽
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Общая площадь:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.area} кв. м
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Этажность:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.floor}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Количество жилых помещений:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.residential_count}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Тип проекта:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.house_seria}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Организация:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.organization}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Год постройки:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.year}
+              </span>
+            </h1>
+          </Box>
+        </Stack>
       </Stack>
-    </Stack>
-    <Box
-      sx={{
-        position: "absolute",
-        bottom: "32px",
-        marginLeft: "16px",
-        width: "calc(100% - 32px)",
-      }}
-    >
-      <DefaultButton
-        onClick={() => window.open(currentPoint?.url)}
+      <Box
         sx={{
-          color: "black",
-          padding: "16px",
-          border: "1px black solid",
-          width: "100%",
-          fontSize: "14px",
+          position: "absolute",
+          bottom: "32px",
+          marginLeft: "16px",
+          width: "calc(100% - 32px)",
         }}
       >
-        К источнику
-      </DefaultButton>
-    </Box>
-  </Stack>
-  )
-}
+        <DefaultButton
+          onClick={() =>
+            window.open(
+              `https://xn----8sbfkauo0anebcjdfk0n.xn--p1acf/moskva/${currentPoint?.kadastr_number.replace(
+                /:/g,
+                "-"
+              )}/_secdc52b7535fe`
+            )
+          }
+          sx={{
+            color: "black",
+            padding: "16px",
+            border: "1px black solid",
+            width: "100%",
+            fontSize: "14px",
+          }}
+        >
+          Заказать выписку
+        </DefaultButton>
+      </Box>
+    </Stack>
+  );
+};
 
-export default MapDrawer
+export default MapDrawer;

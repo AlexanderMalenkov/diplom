@@ -1,7 +1,15 @@
 // Подключение модулей
 const express = require('express');
+const mysql2 = require('mysql2/promise')
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+
+const pool = mysql2.createPool({
+  host: 'localhost',
+  user: 'root',
+  database: 'geoportal_otradnoe',
+  password: ''
+})
 
 // получение токена и логина из env
 const access_token = (dotenv?.parsed?.ADS_ACCESS_TOKEN);
@@ -28,16 +36,17 @@ app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
 });
 
-// Тестовый еднпоинт
-app.get('/', (req, res) => {
-  res.send('Привет, это мой первый ендпоинт rest-api!');
+
+app.get('/kadastr', (req, res) => {
+  pool.query('SELECT * FROM kadastr_map')?.then((data) => {
+    res.json(data[0])
+  })
 });
 
-
-app.get('/list', async (req, res) => {
-  res.json({
-    data: 'sss'
-  });
+app.get('/new_buildings', (req, res) => {
+  pool.query('SELECT * FROM newbuildings')?.then((data) => {
+    res.json(data[0])
+  })
 });
 
 //подключение живого апи (по умолчанию указываем москву и метро отрадное!)

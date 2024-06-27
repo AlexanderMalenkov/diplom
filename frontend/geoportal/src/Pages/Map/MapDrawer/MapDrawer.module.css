@@ -1,0 +1,55 @@
+.mainButton {
+    font-family: "Montserrat", sans-serif !important;
+    width: 50% !important;
+    margin-top: 48px !important;
+    font-size: 18px !important;
+    padding: 24px !important;
+    border-radius: 16px !important;
+  }
+  
+  .drawer {
+    position: absolute;
+    z-index: 10000;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    width: 350px;
+    background-color: #efe9e0;
+    padding: 0;
+  }
+  
+  .drawerTitle {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    line-height: 18px;
+    font-style: normal;
+    color: #211f19;
+    text-align: left;
+    font-size: 18px;
+  }
+  
+  .drawerSubTitle {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    line-height: 16px;
+    font-style: normal;
+    color: #211f19;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .drawerText {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    line-height: 16px;
+    font-style: normal;
+    color: #211f19;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  

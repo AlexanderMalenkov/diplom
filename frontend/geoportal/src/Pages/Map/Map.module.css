@@ -20,6 +20,17 @@
   padding: 0;
 }
 
+.mapTitle {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  line-height: 30px;
+  font-style: normal;
+  color: #211f19;
+  text-align: left;
+  font-size: 26px;
+}
+
 .drawerTitle {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;

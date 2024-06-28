@@ -24,6 +24,8 @@ export const MapControl = ({
   setIsNewBuildingsDataDisplay,
   analyzeParam,
   setAnalyzeParam,
+  setIsAnalyze,
+  isAnalyze,
 }) => {
   return (
     <Box className={styles.layersControl}>
@@ -110,27 +112,66 @@ export const MapControl = ({
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
                   value={analyzeParam}
-                    onChange={(e) => setAnalyzeParam(e.target.value)}
+                  onChange={(e) => setAnalyzeParam(e.target.value)}
                 >
                   <FormControlLabel
                     value="none"
-                    control={<Radio />}
-                    label="Не выбрано"
-                  />
-                  <FormControlLabel
-                    value="floor"
-                    control={<Radio />}
-                    label="Этажность"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <p className={styles.layersControlLabel}>Не выбрано</p>
+                    }
                   />
                   <FormControlLabel
                     value="year"
-                    control={<Radio />}
-                    label="Год постройки"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <p className={styles.layersControlLabel}>Год постройки</p>
+                    }
                   />
                   <FormControlLabel
+                    value="floor"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <p className={styles.layersControlLabel}>Этажность</p>
+                    }
+                  />
+
+                  <FormControlLabel
                     value="project"
-                    control={<Radio />}
-                    label="Проект"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={<p className={styles.layersControlLabel}>Проект</p>}
                   />
                 </RadioGroup>
               </Stack>
@@ -156,8 +197,21 @@ export const MapControl = ({
                 flexDirection: "column",
               }}
             >
-              <Stack direction="row" alignItems="center">
-                <DefaultButton>Анализ</DefaultButton>
+              <Stack direction="column">
+                <p className={styles.layersControlLabel}>
+                  Рассчёт расстояния до ближайших станций метро
+                </p>
+                <DefaultButton
+                  onClick={() => {
+                    setIsAnalyze((prev) => !prev);
+                  }}
+                  sx={{
+                    marginTop: "16px",
+                    color: "black",
+                  }}
+                >
+                  {isAnalyze ? "Отмена" : "Выберите объект"}
+                </DefaultButton>
               </Stack>
             </Box>
           </AccordionDetails>

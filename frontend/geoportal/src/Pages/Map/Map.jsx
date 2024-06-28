@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Box, Stack } from "@mui/material";
 
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Polyline,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, Marker, Polyline, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { districtCoordinates } from "../../Utils/contstants";
 import districtBorders from "../../Utils/otradnoe.geojsonl.json";
 import { MapControl } from "./MapControl/MapControl";
+import MapLegend from "./MapDrawer/MapLegend";
 
 import Tooltip from "@mui/material/Tooltip";
 
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { VectorLayer } from "./VectorLayer";
+import { AnalyzeLayer } from "./AnalyzeLayer";
 import MapDrawer from "./MapDrawer/MapDrawer";
 import * as ReactDOMServer from "react-dom/server";
+import styles from "./Map.module.css";
 
 import { MapDefaultMarker } from "./MapDefaultMarker/MapDefaultMarker";
 import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 import MapControlLayer from "./MapControlLayer";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { AnalyzeModal } from "./AnalyzeModal/AnalyzeModal";
+import { colors } from "../../Utils/colors";
 
 export const Map = () => {
   const currentBorders = districtBorders?.geometry?.coordinates[0][0]?.map(
@@ -40,6 +39,8 @@ export const Map = () => {
 
   const [newBuildings, setNewBuildings] = useState([]);
 
+  const [metro, setMetro] = useState([]);
+
   const [isNewBuildingsDataDisplay, setIsNewBuildingsDataDisplay] =
     useState(false);
 
@@ -50,6 +51,14 @@ export const Map = () => {
   const [currentPoint, setCurrentPoint] = useState(null);
 
   const [analyzeParam, setAnalyzeParam] = useState("none");
+
+  const [isAnalyze, setIsAnalyze] = useState(false);
+
+  const [isOpenAnalyzeData, setIsOpenAnalyzeData] = useState(false);
+
+  const [analyzeData, setAnalyzeData] = useState([]);
+
+  const [isLegenOpen, setIsLegendOpen] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:9000/kadastr`)
@@ -62,16 +71,46 @@ export const Map = () => {
       .then((data) => {
         setNewBuildings(data);
       });
+    fetch(`http://localhost:9000/metro`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMetro(data);
+      });
   }, []);
 
-  // const uniqueSeries = kadastrData?.map((item) => {
-  //   return {
-  //     id: item?.id,
-  //     seria: item?.house_seria.toUpperCase().includes("ИНДИВИД")
-  //       ? "Индивидуальный проект"
-  //       : item?.house_seria,
-  //   };
-  // });
+  useEffect(() => {
+    if (isAnalyze) {
+      setIsKadastrDataDisplay(true);
+      setIsNewBuildingsDataDisplay(false);
+    }
+  }, [isAnalyze]);
+
+  const getCurrentColorIconClassificate = (object) => {
+    const age = new Date().getFullYear() - object?.year;
+    if (object?.year > 0) {
+      if (age < 5) {
+        return colors?.[0];
+      }
+      if (age >= 5 && age <= 10) {
+        console.log(age)
+        return colors?.[2];
+      }
+      if (age >= 10 && age <= 20) {
+        console.log(age)
+        return colors?.[1];
+      }
+      if (age > 20) {
+        console.log(age)
+        return colors?.[1];
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (analyzeParam === "year") {
+      setIsLegendOpen(true);
+    }
+  }, [analyzeParam]);
 
   return (
     <>
@@ -82,6 +121,19 @@ export const Map = () => {
           overflowY: "hidden !important",
         }}
       >
+        {isAnalyze && (
+          <Stack
+            sx={{
+              position: "absolute",
+              zIndex: "1000",
+              left: "30vw",
+              top: "1vh",
+            }}
+            className={styles.mapTitle}
+          >
+            Выберите объект для анализа
+          </Stack>
+        )}
         <MapControl
           analyzeParam={analyzeParam}
           setAnalyzeParam={setAnalyzeParam}
@@ -91,6 +143,8 @@ export const Map = () => {
           setIsKadastrDataDisplay={setIsKadastrDataDisplay}
           isNewBuildingsDataDisplay={isNewBuildingsDataDisplay}
           setIsNewBuildingsDataDisplay={setIsNewBuildingsDataDisplay}
+          setIsAnalyze={setIsAnalyze}
+          isAnalyze={isAnalyze}
         />
         <MapContainer
           maxZoom={19}
@@ -132,7 +186,10 @@ export const Map = () => {
                       popupAnchor: [6, -27],
                       className: "custom-icon",
                       html: ReactDOMServer.renderToString(
-                        <MapDefaultMarker type="default" />
+                        <MapDefaultMarker
+                          type={analyzeParam !== "none" ? "custom" : "default"}
+                          color={getCurrentColorIconClassificate(item)}
+                        />
                       ),
                     })}
                   >
@@ -175,10 +232,13 @@ export const Map = () => {
                             color: "black",
                           }}
                           onClick={() => {
-                            setIsDrawerOpen(true);
+                            setIsLegendOpen(false);
+                            isAnalyze
+                              ? setIsOpenAnalyzeData(true)
+                              : setIsDrawerOpen(true);
                           }}
                         >
-                          Подробнее
+                          {isAnalyze ? "Подтвердить" : "Подробнее"}
                         </DefaultButton>
                       </Stack>
                     </Popup>
@@ -224,6 +284,7 @@ export const Map = () => {
                             color: "black",
                           }}
                           onClick={() => {
+                            setIsLegendOpen(false);
                             window.open(item?.url);
                           }}
                         >
@@ -235,17 +296,34 @@ export const Map = () => {
                 );
               })}
           </MarkerClusterGroup>
+          <AnalyzeLayer
+            metro={metro}
+            currentPoint={currentPoint}
+            setAnalyzeData={setAnalyzeData}
+          />
           <MapControlLayer
             currentPoint={currentPoint}
             isDrawerOpen={isDrawerOpen}
           />
         </MapContainer>
       </Box>
+      <AnalyzeModal
+        open={isOpenAnalyzeData}
+        handleClose={() => setIsOpenAnalyzeData(false)}
+        currentPoint={currentPoint}
+        analyzeData={analyzeData}
+      />
       <MapDrawer
         currentPoint={currentPoint}
         isDrawerOpen={isDrawerOpen}
         handleClose={() => {
           setIsDrawerOpen(false);
+        }}
+      />
+      <MapLegend
+        isLegenOpen={isLegenOpen}
+        handleClose={() => {
+          setIsLegendOpen(false);
         }}
       />
     </>

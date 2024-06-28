@@ -49,6 +49,13 @@ app.get('/new_buildings', (req, res) => {
   })
 });
 
+app.get('/metro', (req, res) => {
+  pool.query('SELECT * FROM metro')?.then((data) => {
+    res.json(data[0])
+  })
+});
+
+
 //подключение живого апи (по умолчанию указываем москву и метро отрадное!)
 app.get('/objects-avito', async (req, res) => {
   try {

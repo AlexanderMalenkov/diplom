@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Stack } from "@mui/material";
 
-import { MapContainer, Marker, Polyline, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { districtCoordinates } from "../../Utils/contstants";
@@ -52,6 +58,8 @@ export const Map = () => {
 
   const [analyzeParam, setAnalyzeParam] = useState("none");
 
+  const [currentMap, setCurrentMap] = useState("mapTiler");
+
   const [isAnalyze, setIsAnalyze] = useState(false);
 
   const [isOpenAnalyzeData, setIsOpenAnalyzeData] = useState(false);
@@ -92,16 +100,13 @@ export const Map = () => {
         return colors?.[0];
       }
       if (age >= 5 && age <= 10) {
-        console.log(age)
         return colors?.[2];
       }
       if (age >= 10 && age <= 20) {
-        console.log(age)
         return colors?.[1];
       }
       if (age > 20) {
-        console.log(age)
-        return colors?.[1];
+        return colors?.[3];
       }
     }
   };
@@ -135,6 +140,8 @@ export const Map = () => {
           </Stack>
         )}
         <MapControl
+          currentMap={currentMap}
+          setCurrentMap={setCurrentMap}
           analyzeParam={analyzeParam}
           setAnalyzeParam={setAnalyzeParam}
           isCurrentBorders={isCurrentBorders}
@@ -148,7 +155,7 @@ export const Map = () => {
         />
         <MapContainer
           maxZoom={19}
-          zoom={13}
+          zoom={14}
           center={districtCoordinates}
           scrollWheelZoom={true}
           style={{
@@ -157,10 +164,25 @@ export const Map = () => {
           }}
         >
           <VectorLayer />
-          {/* <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          /> */}
+          {currentMap === "OSM" && (
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          )}
+          {currentMap === "stadia" && (
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.{ext}"
+            />
+          )}
+          {currentMap === "mtbMap" && (
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp;'
+              url="http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png"
+            />
+          )}
+
           {isCurrentBorders && (
             <Polyline
               pathOptions={{
@@ -206,6 +228,7 @@ export const Map = () => {
                                   width: "12px",
                                   top: "9px !important",
                                   left: "18px !important",
+                                  cursor: "pointer",
                                 }}
                               />
                             </Tooltip>
@@ -232,7 +255,7 @@ export const Map = () => {
                             color: "black",
                           }}
                           onClick={() => {
-                            setIsLegendOpen(false);
+                            // setIsLegendOpen(false);
                             isAnalyze
                               ? setIsOpenAnalyzeData(true)
                               : setIsDrawerOpen(true);

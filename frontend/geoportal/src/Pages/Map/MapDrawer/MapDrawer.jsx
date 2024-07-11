@@ -3,8 +3,8 @@ import styles from "./MapDrawer.module.css";
 import { Stack, Box, keyframes } from "@mui/material";
 import { DefaultButton } from "../../../UI-kit/Button/DefaultButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { MapDefaultMarker } from "../MapDefaultMarker/MapDefaultMarker";
-import { colors } from "../../../Utils/colors";
+import { enqueueSnackbar } from "notistack";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
   const slideOutRight = keyframes` 
@@ -15,6 +15,7 @@ const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
     transform: translateX(0%);
   }
 }`;
+  // console.log(new Date().getFullYear() - currentPoint?.year)
   return (
     <Stack
       className={styles.drawer}
@@ -46,128 +47,142 @@ const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
             }}
           />
         </Stack>
-          
-          <Stack
-            sx={{
-              padding: "16px",
-            }}
-          >
-            <h2 className={styles.drawerTitle}>
-              Объект № {currentPoint?.kadastr_number}
-            </h2>
-            <p className={styles.drawerText}>{currentPoint?.address}</p>
 
-            <Box
-              sx={{
-                marginTop: "16px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              <h1 className={styles.drawerSubTitle}>
-                Кадастровая стоимость:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.kadastr_cost} ₽
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Общая площадь:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.area} кв. м
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Этажность:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.floor}
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Количество жилых помещений:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.residential_count}
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Тип проекта:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.house_seria}
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Организация:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.organization}
-                </span>
-              </h1>
-              <h1 className={styles.drawerSubTitle}>
-                Год постройки:{" "}
-                <span
-                  style={{
-                    fontWeight: 800,
-                  }}
-                >
-                  {currentPoint?.year}
-                </span>
-              </h1>
-            </Box>
-          </Stack>
-        
-      </Stack>
-        <Box
+        <Stack
           sx={{
-            position: "absolute",
-            bottom: "32px",
-            marginLeft: "16px",
-            width: "calc(100% - 32px)",
+            padding: "16px",
           }}
         >
-          <DefaultButton
-            onClick={() =>
-              window.open(
-                `https://xn----8sbfkauo0anebcjdfk0n.xn--p1acf/moskva/${currentPoint?.kadastr_number.replace(
-                  /:/g,
-                  "-"
-                )}/_secdc52b7535fe`
-              )
-            }
+          <h2 className={styles.drawerTitle}>
+            Объект № {currentPoint?.kadastr_number}{" "}
+            <ContentCopyIcon
+              onClick={() => {
+                navigator.clipboard.writeText(currentPoint?.kadastr_number);
+                enqueueSnackbar("Кадастровый номер скопиран в буфер обмена!", {
+                  variant: "info",
+                });
+              }}
+              sx={{
+                width: "18px",
+                height: "18px",
+                position: "relative",
+                top: "3px",
+                left: "3px",
+                cursor: "pointer",
+              }}
+            />
+          </h2>
+          <p className={styles.drawerText}>{currentPoint?.address}</p>
+
+          <Box
             sx={{
-              color: "black",
-              padding: "16px",
-              border: "1px black solid",
-              width: "100%",
-              fontSize: "14px",
+              marginTop: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
             }}
           >
-            Заказать выписку
-          </DefaultButton>
-        </Box>
-      
+            <h1 className={styles.drawerSubTitle}>
+              Кадастровая стоимость:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.kadastr_cost} ₽
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Общая площадь:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.area} кв. м
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Этажность:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.floor}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Количество жилых помещений:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.residential_count}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Тип проекта:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.house_seria}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Организация:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.organization}
+              </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Год постройки:{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                }}
+              >
+                {currentPoint?.year}
+              </span>
+            </h1>
+          </Box>
+        </Stack>
+      </Stack>
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "32px",
+          marginLeft: "16px",
+          width: "calc(100% - 32px)",
+        }}
+      >
+        <DefaultButton
+          onClick={() =>
+            window.open(
+              `https://xn----8sbfkauo0anebcjdfk0n.xn--p1acf/moskva/${currentPoint?.kadastr_number.replace(
+                /:/g,
+                "-"
+              )}/`
+            )
+          }
+          sx={{
+            color: "black",
+            padding: "16px",
+            border: "1px black solid",
+            width: "100%",
+            fontSize: "14px",
+          }}
+        >
+          Заказать выписку
+        </DefaultButton>
+      </Box>
     </Stack>
   );
 };

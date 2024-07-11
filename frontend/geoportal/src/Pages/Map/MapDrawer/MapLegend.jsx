@@ -19,6 +19,7 @@ const MapLegend = ({ currentPoint, isLegenOpen, handleClose }) => {
     <Stack
       className={styles.drawer}
       sx={{
+        zIndex: 1000,
         display: isLegenOpen ? "flex" : "none",
         animation: isLegenOpen ? `${slideOutRight} 0.5s` : "",
       }}
@@ -51,7 +52,7 @@ const MapLegend = ({ currentPoint, isLegenOpen, handleClose }) => {
             padding: "16px",
           }}
         >
-          <h2 className={styles.drawerTitle}>Год постройки</h2>
+          <h2 className={styles.drawerTitle}>Возраст</h2>
           <Box
             sx={{
               marginTop: "32px",
@@ -83,7 +84,6 @@ const MapLegend = ({ currentPoint, isLegenOpen, handleClose }) => {
           </Box>
         </Stack>
       </Stack>
-      <Stack>s</Stack>
     </Stack>
   );
 };

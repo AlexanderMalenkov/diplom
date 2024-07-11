@@ -26,6 +26,8 @@ export const MapControl = ({
   setAnalyzeParam,
   setIsAnalyze,
   isAnalyze,
+  setCurrentMap,
+  currentMap,
 }) => {
   return (
     <Box className={styles.layersControl}>
@@ -33,6 +35,83 @@ export const MapControl = ({
         Инструмент управления картой
       </h2>
       <Box>
+        <Accordion
+          sx={{
+            marginTop: " 32px",
+          }}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <h3 className={styles.layersControlSubTitle}>
+              Картографическая основа
+            </h3>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box
+              sx={{
+                paddingBottom: "16px",
+                display: "flex",
+                gap: "16px",
+                flexDirection: "column",
+              }}
+            >
+              <Stack direction="row" alignItems="center">
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={currentMap}
+                  onChange={(e) => setCurrentMap(e.target.value)}
+                >
+                  <FormControlLabel
+                    value="mapTiler"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <p className={styles.layersControlLabel}>MapTiler</p>
+                    }
+                  />
+                  <FormControlLabel
+                    value="OSM"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <p className={styles.layersControlLabel}>OpenStreetMap</p>
+                    }
+                  />
+
+                  <FormControlLabel
+                    value="mtbMap"
+                    control={
+                      <Radio
+                        sx={{
+                          "&, &.Mui-checked": {
+                            color: "#b8533b ",
+                          },
+                        }}
+                      />
+                    }
+                    label={<p className={styles.layersControlLabel}>MtbMap</p>}
+                  />
+                </RadioGroup>
+              </Stack>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
         <Accordion
           sx={{
             marginTop: " 32px",
@@ -141,7 +220,7 @@ export const MapControl = ({
                       />
                     }
                     label={
-                      <p className={styles.layersControlLabel}>Год постройки</p>
+                      <p className={styles.layersControlLabel}>Возраст</p>
                     }
                   />
                   <FormControlLabel

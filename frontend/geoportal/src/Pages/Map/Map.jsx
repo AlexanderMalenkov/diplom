@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import * as ReactDOMServer from "react-dom/server";
 import { Box, Stack } from "@mui/material";
 
 import {
@@ -16,20 +17,20 @@ import { MapControl } from "./MapControl/MapControl";
 import MapLegend from "./MapDrawer/MapLegend";
 
 import Tooltip from "@mui/material/Tooltip";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { VectorLayer } from "./VectorLayer";
 import { AnalyzeLayer } from "./AnalyzeLayer";
 import MapDrawer from "./MapDrawer/MapDrawer";
-import * as ReactDOMServer from "react-dom/server";
 import styles from "./Map.module.css";
 
 import { MapDefaultMarker } from "./MapDefaultMarker/MapDefaultMarker";
 import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 import MapControlLayer from "./MapControlLayer";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { AnalyzeModal } from "./AnalyzeModal/AnalyzeModal";
+import { AdvertisementModal } from "./AdvertisementModal/AdvertisementModal";
 import { colors } from "../../Utils/colors";
 
 export const Map = () => {
@@ -46,6 +47,8 @@ export const Map = () => {
   const [newBuildings, setNewBuildings] = useState([]);
 
   const [metro, setMetro] = useState([]);
+
+  const [advertisements, setAdvertisements] = useState([]);
 
   const [isNewBuildingsDataDisplay, setIsNewBuildingsDataDisplay] =
     useState(false);
@@ -68,6 +71,9 @@ export const Map = () => {
 
   const [isLegenOpen, setIsLegendOpen] = useState(false);
 
+  const [isAdvertisementModalOpen, setIsAdvertisementModalOpen] =
+    useState(false);
+
   useEffect(() => {
     fetch(`http://localhost:9000/kadastr`)
       .then((response) => response.json())
@@ -83,6 +89,11 @@ export const Map = () => {
       .then((response) => response.json())
       .then((data) => {
         setMetro(data);
+      });
+    fetch(`http://localhost:9000/advertisements`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAdvertisements(data);
       });
   }, []);
 
@@ -339,8 +350,17 @@ export const Map = () => {
       <MapDrawer
         currentPoint={currentPoint}
         isDrawerOpen={isDrawerOpen}
+        handleAdvertisementModalOpen={setIsAdvertisementModalOpen}
         handleClose={() => {
           setIsDrawerOpen(false);
+        }}
+      />
+      <AdvertisementModal
+        open={isAdvertisementModalOpen}
+        currentPoint={currentPoint}
+        advertisements={advertisements}
+        handleClose={() => {
+          setIsAdvertisementModalOpen(false);
         }}
       />
       <MapLegend

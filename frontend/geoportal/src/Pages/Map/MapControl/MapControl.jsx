@@ -219,9 +219,7 @@ export const MapControl = ({
                         }}
                       />
                     }
-                    label={
-                      <p className={styles.layersControlLabel}>Возраст</p>
-                    }
+                    label={<p className={styles.layersControlLabel}>Возраст</p>}
                   />
                   <FormControlLabel
                     value="floor"
@@ -239,7 +237,7 @@ export const MapControl = ({
                     }
                   />
 
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     value="project"
                     control={
                       <Radio
@@ -251,7 +249,7 @@ export const MapControl = ({
                       />
                     }
                     label={<p className={styles.layersControlLabel}>Проект</p>}
-                  />
+                  /> */}
                 </RadioGroup>
               </Stack>
             </Box>
@@ -278,7 +276,7 @@ export const MapControl = ({
             >
               <Stack direction="column">
                 <p className={styles.layersControlLabel}>
-                  Рассчёт расстояния до ближайших станций метро
+                  Расчёт расстояния до ближайших станций метро
                 </p>
                 <DefaultButton
                   onClick={() => {

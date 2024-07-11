@@ -5,8 +5,14 @@ import { DefaultButton } from "../../../UI-kit/Button/DefaultButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { enqueueSnackbar } from "notistack";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import NorthEastOutlinedIcon from "@mui/icons-material/NorthEastOutlined";
 
-const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
+const MapDrawer = ({
+  currentPoint,
+  isDrawerOpen,
+  handleClose,
+  handleAdvertisementModalOpen,
+}) => {
   const slideOutRight = keyframes` 
   from {
     transform: translateX(-200%);
@@ -15,7 +21,6 @@ const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
     transform: translateX(0%);
   }
 }`;
-  // console.log(new Date().getFullYear() - currentPoint?.year)
   return (
     <Stack
       className={styles.drawer}
@@ -151,6 +156,22 @@ const MapDrawer = ({ currentPoint, isDrawerOpen, handleClose, isLegend }) => {
               >
                 {currentPoint?.year}
               </span>
+            </h1>
+            <h1 className={styles.drawerSubTitle}>
+              Смотреть объявления
+              <NorthEastOutlinedIcon
+                onClick={() => {
+                  handleAdvertisementModalOpen(true);
+                }}
+                sx={{
+                  width: "18px",
+                  height: "18px",
+                  position: "relative",
+                  top: "3px",
+                  left: "3px",
+                  cursor: "pointer",
+                }}
+              />
             </h1>
           </Box>
         </Stack>

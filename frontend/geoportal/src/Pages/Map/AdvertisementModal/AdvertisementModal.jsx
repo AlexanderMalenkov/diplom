@@ -27,7 +27,6 @@ export const AdvertisementModal = ({
     );
     if (data) return data;
   }, [currentPoint, advertisements]);
-  console.log(currentInfo);
   return (
     <Dialog
       open={open}
@@ -92,7 +91,9 @@ export const AdvertisementModal = ({
                       {item?.price}₽
                     </span>
                   </h1>
-                  <DefaultButton sx={{ color: "black" }}>
+                  <DefaultButton sx={{ color: "black" }} onClick={() => {
+                    window.open(item?.originalUrl)
+                  }}>
                     Перейти к объявлению
                   </DefaultButton>
                 </Stack>

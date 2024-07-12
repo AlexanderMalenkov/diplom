@@ -139,3 +139,6 @@ table {
 html::-webkit-scrollbar {
   width: 0 !important;
 }
+.leaflet-control {
+  display: none !important;
+}

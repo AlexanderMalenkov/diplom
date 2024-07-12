@@ -20,6 +20,8 @@ export const AnalyzeModal = ({
   handleClose,
   currentPoint,
   analyzeData,
+  setAnalyzeData,
+  handleRoutintMachine,
 }) => {
   return (
     <Dialog
@@ -53,9 +55,14 @@ export const AnalyzeModal = ({
                     color: "black",
                   }}
                   onClick={() => {
-                    window.open(
-                      `https://yandex.ru/maps/213/moscow/?mode=routes&rtext=${item?.points?.[0]?.coord_lat}%2C${item?.points?.[0]?.coord_lng}~${item?.points?.[1]?.coord_lat}%2C${item?.points?.[1]?.coord_lng}`
+                    setAnalyzeData(
+                      analyzeData?.filter((current) => current.id === item.id)
                     );
+                    handleRoutintMachine(true);
+                    handleClose();
+                    // window.open(
+                    //   `https://yandex.ru/maps/213/moscow/?mode=routes&rtext=${item?.points?.[0]?.coord_lat}%2C${item?.points?.[0]?.coord_lng}~${item?.points?.[1]?.coord_lat}%2C${item?.points?.[1]?.coord_lng}`
+                    // );
                   }}
                 >
                   Перейти к маршруту

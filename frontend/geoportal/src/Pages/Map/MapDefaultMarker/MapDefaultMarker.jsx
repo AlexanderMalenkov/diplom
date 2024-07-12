@@ -11,11 +11,28 @@ export const MapDefaultMarker = ({ type, color, isLegend }) => {
         backgroundColor: type === "custom" ? color : "",
       }}
     >
+      {type === "metro" && (
+        <div
+          style={{
+            position: "relative",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: '16px',
+              position: "relative",
+              color: 'red'
+            }}
+          >
+            M
+          </h1>
+        </div>
+      )}
       {type === "custom" && (
         <div
           style={{
             position: "relative",
-            top: isLegend ? '0px' : "-12px",
+            top: isLegend ? "0px" : "-12px",
             right: isLegend ? 0 : "12px",
           }}
         >

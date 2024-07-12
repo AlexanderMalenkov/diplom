@@ -27,6 +27,7 @@ import MapDrawer from "./MapDrawer/MapDrawer";
 import styles from "./Map.module.css";
 
 import { MapDefaultMarker } from "./MapDefaultMarker/MapDefaultMarker";
+import { RoutingMachine } from "./RoutingMachine/RoutingMachine";
 import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 import MapControlLayer from "./MapControlLayer";
 import { AnalyzeModal } from "./AnalyzeModal/AnalyzeModal";
@@ -70,6 +71,8 @@ export const Map = () => {
   const [analyzeData, setAnalyzeData] = useState([]);
 
   const [isLegenOpen, setIsLegendOpen] = useState(false);
+
+  const [isRoutingMachine, setIsRoutingMachine] = useState(false);
 
   const [isAdvertisementModalOpen, setIsAdvertisementModalOpen] =
     useState(false);
@@ -339,6 +342,7 @@ export const Map = () => {
             currentPoint={currentPoint}
             isDrawerOpen={isDrawerOpen}
           />
+          {isRoutingMachine && <RoutingMachine analyzeData={analyzeData} />}
         </MapContainer>
       </Box>
       <AnalyzeModal
@@ -346,6 +350,8 @@ export const Map = () => {
         handleClose={() => setIsOpenAnalyzeData(false)}
         currentPoint={currentPoint}
         analyzeData={analyzeData}
+        setAnalyzeData={setAnalyzeData}
+        handleRoutintMachine={setIsRoutingMachine}
       />
       <MapDrawer
         currentPoint={currentPoint}

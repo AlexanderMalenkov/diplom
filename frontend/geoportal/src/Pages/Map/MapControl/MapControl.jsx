@@ -28,6 +28,7 @@ export const MapControl = ({
   isAnalyze,
   setCurrentMap,
   currentMap,
+  handleRoutintMachine
 }) => {
   return (
     <Box className={styles.layersControl}>
@@ -281,6 +282,9 @@ export const MapControl = ({
                 <DefaultButton
                   onClick={() => {
                     setIsAnalyze((prev) => !prev);
+                    if (isAnalyze) {
+                      handleRoutintMachine(false);
+                    }
                   }}
                   sx={{
                     marginTop: "16px",

@@ -125,9 +125,31 @@ export const Map = () => {
     }
   };
 
+  const getCurrentColorIconClassificateFloor = (object) => {
+    const floor = object.floor;
+
+    if (floor > 0) {
+      if (floor <= 5) {
+        return colors?.[0];
+      }
+      if (floor > 5 && floor < 10) {
+        return colors?.[2];
+      }
+      if (floor >= 10 && floor <= 14) {
+        return colors?.[1];
+      }
+      if (floor > 14) {
+        return colors?.[3];
+      }
+    }
+  };
+
   useEffect(() => {
-    if (analyzeParam === "year") {
+    if (analyzeParam === "year" || analyzeParam === "floor") {
       setIsLegendOpen(true);
+    }
+    if (analyzeParam === "none") {
+      setIsLegendOpen(false);
     }
   }, [analyzeParam]);
 
@@ -154,6 +176,7 @@ export const Map = () => {
           </Stack>
         )}
         <MapControl
+          handleRoutintMachine={setIsRoutingMachine}
           currentMap={currentMap}
           setCurrentMap={setCurrentMap}
           analyzeParam={analyzeParam}
@@ -224,7 +247,11 @@ export const Map = () => {
                       html: ReactDOMServer.renderToString(
                         <MapDefaultMarker
                           type={analyzeParam !== "none" ? "custom" : "default"}
-                          color={getCurrentColorIconClassificate(item)}
+                          color={
+                            analyzeParam === "floor"
+                              ? getCurrentColorIconClassificateFloor(item)
+                              : getCurrentColorIconClassificate(item)
+                          }
                         />
                       ),
                     })}
@@ -370,6 +397,7 @@ export const Map = () => {
         }}
       />
       <MapLegend
+        analyzeParam={analyzeParam}
         isLegenOpen={isLegenOpen}
         handleClose={() => {
           setIsLegendOpen(false);

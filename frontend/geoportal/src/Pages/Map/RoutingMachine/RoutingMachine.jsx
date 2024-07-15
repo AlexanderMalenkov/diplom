@@ -6,7 +6,11 @@ import "leaflet-routing-machine";
 import * as ReactDOMServer from "react-dom/server";
 import { MapDefaultMarker } from "../MapDefaultMarker/MapDefaultMarker";
 
-export const RoutingMachine = ({ analyzeData }) => {
+export const RoutingMachine = ({
+  analyzeData,
+  handleLegendOpen,
+  handleRoutingData,
+}) => {
   console.log(analyzeData);
   const map = useMap();
   const icon = L.icon({
@@ -63,6 +67,19 @@ export const RoutingMachine = ({ analyzeData }) => {
         L.latLng(item.coord_lat, item?.coord_lng)
       )
     );
+    routing.on("routesfound", function (e) {
+      handleLegendOpen(true);
+      var routes = e.routes;
+      var summary = routes[0].summary;
+      // alert distance and time in km and minutes
+      handleRoutingData(
+        "Общее расстояние составляет " +
+          (summary.totalDistance / 1000).toFixed(2) +
+          " км, а общее время в пути пешком – " +
+          Math.round((summary.totalDistance / 1000 / 5) * 60) +
+          " минут"
+      );
+    });
   }, [analyzeData]);
   useEffect(() => {
     if (!map) return;

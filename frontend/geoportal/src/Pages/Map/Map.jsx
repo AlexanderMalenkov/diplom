@@ -74,6 +74,8 @@ export const Map = () => {
 
   const [isRoutingMachine, setIsRoutingMachine] = useState(false);
 
+  const [routingData, setIsRoutingData] = useState(null);
+
   const [isAdvertisementModalOpen, setIsAdvertisementModalOpen] =
     useState(false);
 
@@ -369,7 +371,13 @@ export const Map = () => {
             currentPoint={currentPoint}
             isDrawerOpen={isDrawerOpen}
           />
-          {isRoutingMachine && <RoutingMachine analyzeData={analyzeData} />}
+          {isRoutingMachine && (
+            <RoutingMachine
+              analyzeData={analyzeData}
+              handleLegendOpen={setIsLegendOpen}
+              handleRoutingData={setIsRoutingData}
+            />
+          )}
         </MapContainer>
       </Box>
       <AnalyzeModal
@@ -397,6 +405,8 @@ export const Map = () => {
         }}
       />
       <MapLegend
+        isRoutingMachine={isRoutingMachine}
+        routingData={routingData}
         analyzeParam={analyzeParam}
         isLegenOpen={isLegenOpen}
         handleClose={() => {

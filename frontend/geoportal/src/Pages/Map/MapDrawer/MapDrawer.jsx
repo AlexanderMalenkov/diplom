@@ -25,6 +25,7 @@ const MapDrawer = ({
     <Stack
       className={styles.drawer}
       sx={{
+        zIndex: 1001,
         display: isDrawerOpen ? "flex" : "none",
         animation: isDrawerOpen ? `${slideOutRight} 0.5s` : "",
       }}
@@ -178,10 +179,12 @@ const MapDrawer = ({
       </Stack>
       <Box
         sx={{
-          position: "absolute",
-          bottom: "32px",
+          // position: "absolute",
+          // bottom: "32px",
+          marginBottom: '32px',
           marginLeft: "16px",
           width: "calc(100% - 32px)",
+
         }}
       >
         <DefaultButton

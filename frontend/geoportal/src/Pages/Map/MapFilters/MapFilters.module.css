@@ -1,21 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
-.layersControl {
+.drawer {
   position: absolute;
   z-index: 1000;
-  right: 12px;
+  left: 12px;
   top: 12px;
-  bottom: 12px;
-  width: 350px;
-  overflow-y: auto;
-  height: calc(100vh - 64px);
+  min-width: 350px;
+  max-width: 350px;
   background-color: #efe9e0;
-  padding: 16px;
-  border: 2px #b8533b solid;
+
   border-radius: 1px;
+  padding-bottom: 12px;
+  border: 2px #b8533b solid;
 }
 
-.layersControlTitle {
+.drawerTitle {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -26,15 +23,28 @@
   font-size: 18px;
 }
 
-.layersControlSubTitle {
+.drawerSubTitle {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 600;
-  line-height: 14px;
+  font-weight: 400;
+  line-height: 16px;
   font-style: normal;
   color: #211f19;
   text-align: left;
   font-size: 14px;
+}
+
+.drawerText {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  line-height: 16px;
+  font-style: normal;
+  color: #211f19;
+  text-align: left;
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .layersControlLabel {

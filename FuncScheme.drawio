@@ -1,0 +1,124 @@
+<mxfile host="app.diagrams.net" modified="2024-07-17T08:35:37.250Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="9cvULd9mcioybuELfoMK" version="24.6.5" type="device">
+  <diagram name="Страница — 1" id="AL-3s2rF3IlnrqJjVsSH">
+    <mxGraphModel dx="1000" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-28" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="20" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-29" value="Этап сбора данных" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="362" y="20" width="126" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-32" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="HS5L_PtOqFhMI-Gw8M8V-28">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="230" as="sourcePoint" />
+            <mxPoint x="425" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-35" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="190" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-36" value="Этап предобработки данных" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="336" y="190" width="178" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-37" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="220" width="550" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-39" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="HS5L_PtOqFhMI-Gw8M8V-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="425" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-40" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="360" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-41" value="Этап обработки данных" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="341" y="360" width="168" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-42" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="390" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-43" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="337" y="390" width="176" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-44" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="HS5L_PtOqFhMI-Gw8M8V-40">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="570" as="sourcePoint" />
+            <mxPoint x="425" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-45" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="530" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-46" value="Этап передачи данных" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="341" y="530" width="168" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-47" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="560" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-48" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="560" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-49" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="HS5L_PtOqFhMI-Gw8M8V-45">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="740" as="sourcePoint" />
+            <mxPoint x="425" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-50" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="700" width="570" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-51" value="Этап визуализации данных" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="336" y="700" width="178" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-59" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="50" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-60" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="50" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-61" value="Получение данных об объектах жилищного фонда с сервисов росреестр-выписка.рус, dom.gosuslugi.ru, domclick.ru, yandex.ru/map" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="50" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-62" value="Получение данных об административных границах района Отрадное на портале otradnoe.su" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="50" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-63" value="Валидация полученных данных: проверка наличия данных и соответствия типов данных типам данных в БД" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="262.5" y="255" width="325" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-64" value="Преобразование типов данных к типам данных, описанных БД" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="169.5" y="425" width="141" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-65" value="Приведение полученных данных к единому формату путём сортировок, фильтраций" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="348.75" y="425" width="152.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-66" value="Заполнение таблиц БД" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="159" y="595" width="255" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-67" value="Формирование конечных точек API (end-points) для передачи данных из БД" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="437.5" y="595" width="255" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-73" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="730" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-74" value="Получение данных об объектах жилищного фонда из БД и отображение на карте в виде тематического слоя&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="159" y="765" width="255" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-75" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="730" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-76" value="Получение данных о границах района в виде geojson полигона и отображение его на карте" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="439" y="765" width="255" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-77" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="390" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HS5L_PtOqFhMI-Gw8M8V-78" value="Формирование файлов необходимого формата для работы с интерактивной картой&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="539.5" y="425" width="141" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

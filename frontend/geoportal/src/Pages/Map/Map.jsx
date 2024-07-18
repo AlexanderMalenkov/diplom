@@ -18,6 +18,7 @@ import MapLegend from "./MapDrawer/MapLegend";
 
 import Tooltip from "@mui/material/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 import MarkerClusterGroup from "react-leaflet-cluster";
 
@@ -32,6 +33,8 @@ import { DefaultButton } from "../../UI-kit/Button/DefaultButton";
 import MapControlLayer from "./MapControlLayer";
 import { AnalyzeModal } from "./AnalyzeModal/AnalyzeModal";
 import { AdvertisementModal } from "./AdvertisementModal/AdvertisementModal";
+import { MapFilters } from "./MapFilters/MapFilters";
+
 import { colors } from "../../Utils/colors";
 
 export const Map = () => {
@@ -42,6 +45,8 @@ export const Map = () => {
   );
 
   const [kadastrData, setKadastrData] = useState([]);
+
+  const [kadastrDataFiltered, setKadastrDateFiltered] = useState([]);
 
   const [isKadastrDataDisplay, setIsKadastrDataDisplay] = useState(false);
 
@@ -76,14 +81,30 @@ export const Map = () => {
 
   const [routingData, setIsRoutingData] = useState(null);
 
+  const [filtersListOpen, setFiltersListOpen] = useState(false);
+
+  const [floorFilterParam, setFloorFilterParam] = useState({
+    less5: true,
+    from6to9: true,
+    from10to14: true,
+    more14: true,
+  });
+
+  const [ageFilterParam, setAgeFilterParam] = useState({
+    less5: true,
+    from6to9: true,
+    from10to20: true,
+    more20: true,
+  });
+
   const [isAdvertisementModalOpen, setIsAdvertisementModalOpen] =
     useState(false);
-
   useEffect(() => {
     fetch(`http://localhost:9000/kadastr`)
       .then((response) => response.json())
       .then((data) => {
         setKadastrData(data);
+        setKadastrDateFiltered(data);
       });
     fetch(`http://localhost:9000/new_buildings`)
       .then((response) => response.json())
@@ -112,10 +133,10 @@ export const Map = () => {
   const getCurrentColorIconClassificate = (object) => {
     const age = new Date().getFullYear() - object?.year;
     if (object?.year > 0) {
-      if (age < 5) {
+      if (age <= 5) {
         return colors?.[0];
       }
-      if (age >= 5 && age <= 10) {
+      if (age > 5 && age < 10) {
         return colors?.[2];
       }
       if (age >= 10 && age <= 20) {
@@ -154,6 +175,47 @@ export const Map = () => {
       setIsLegendOpen(false);
     }
   }, [analyzeParam]);
+
+  useEffect(() => {
+    const filteredDataAge = kadastrData.filter((item) => {
+      const age = new Date().getFullYear() - item?.year;
+      if (ageFilterParam?.from6to9 && age >= 6 && age <= 9) {
+        return true;
+      }
+      if (ageFilterParam?.less5 && age < 5) {
+        return true;
+      }
+      if (ageFilterParam?.from10to20 && age >= 10 && age <= 20) {
+        return true;
+      }
+      if (ageFilterParam?.more20 && age > 20) {
+        return true;
+      }
+      return false; // Если ни одно условие не выполняется
+    });
+    setKadastrDateFiltered(filteredDataAge);
+  }, [ageFilterParam]);
+
+  useEffect(() => {
+    console.log(floorFilterParam);
+    const filteredData = kadastrData.filter((item) => {
+      const floor = item?.floor;
+      if (floorFilterParam?.from6to9 && floor >= 6 && floor <= 9) {
+        return true;
+      }
+      if (floorFilterParam?.less5 && floor <= 5) {
+        return true;
+      }
+      if (floorFilterParam?.from10to14 && floor >= 10 && floor <= 14) {
+        return true;
+      }
+      if (floorFilterParam?.more14 && floor > 14) {
+        return true;
+      }
+      return false; // Если ни одно условие не выполняется
+    });
+    setKadastrDateFiltered(filteredData);
+  }, [floorFilterParam]);
 
   return (
     <>
@@ -232,7 +294,7 @@ export const Map = () => {
           )}
           <MarkerClusterGroup>
             {isKadastrDataDisplay &&
-              kadastrData?.map((item) => {
+              kadastrDataFiltered?.map((item) => {
                 return (
                   <Marker
                     eventHandlers={{
@@ -380,6 +442,38 @@ export const Map = () => {
           )}
         </MapContainer>
       </Box>
+      <DefaultButton
+        sx={{
+          color: "black",
+          zIndex: "1000",
+          position: "absolute",
+          top: "12px",
+          left: "12px",
+          backgroundColor: "#efe9e0",
+        }}
+        onClick={() => {
+          setFiltersListOpen(true);
+        }}
+      >
+        Фильтры
+        <FilterListIcon
+          sx={{
+            marginLeft: "6px",
+            height: "16px",
+            width: "16px",
+          }}
+        />
+      </DefaultButton>
+      <MapFilters
+        open={filtersListOpen}
+        handleClose={() => {
+          setFiltersListOpen(false);
+        }}
+        handleFloorFilterParam={setFloorFilterParam}
+        floorFilterParam={floorFilterParam}
+        ageFilterParam={ageFilterParam}
+        handleAgeFilterParam={setAgeFilterParam}
+      />
       <AnalyzeModal
         open={isOpenAnalyzeData}
         handleClose={() => setIsOpenAnalyzeData(false)}

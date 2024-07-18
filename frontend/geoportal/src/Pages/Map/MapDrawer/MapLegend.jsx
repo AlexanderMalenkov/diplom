@@ -26,15 +26,16 @@ const MapLegend = ({
     <Stack
       className={styles.drawer}
       sx={{
-        zIndex: 999,
+        zIndex: 1000,
         display: isLegenOpen ? "flex" : "none",
         animation: isLegenOpen ? `${slideOutRight} 0.5s` : "",
-        maxHeight: isRoutingMachine ? "15vh" : "50vh",
+        maxHeight: isRoutingMachine ? "15vh" : "40vh",
       }}
     >
       <Stack
         sx={{
           width: "100%",
+          marginBottom: "32px",
         }}
       >
         <Stack
@@ -62,7 +63,7 @@ const MapLegend = ({
             }}
           >
             <h2 className={styles.drawerTitle}>
-              {analyzeParam === "year" ? "Год постройки" : "Этажность"}
+              {analyzeParam === "year" ? "Возраст" : "Этажность"}
             </h2>
             <Box
               sx={{
@@ -76,14 +77,16 @@ const MapLegend = ({
                 {" "}
                 <MapDefaultMarker type="custom" color={colors[0]} isLegend />
                 <h1 className={styles.drawerSubTitle}>
-                  {analyzeParam === "year" ? "Младше 5 лет" : "До 5 этажей"}
+                  {analyzeParam === "year" ? "До 5 лет" : "До 5 этажей"}
                 </h1>
               </Stack>
               <Stack direction="row" alignItems="center" gap="12px">
                 {" "}
                 <MapDefaultMarker type="custom" color={colors[2]} isLegend />
                 <h1 className={styles.drawerSubTitle}>
-                  {analyzeParam === "year" ? "5 - 10 лет" : "От 6 до 9 этажей"}
+                  {analyzeParam === "year"
+                    ? "От 6 до 9 лет"
+                    : "От 6 до 9 этажей"}
                 </h1>
               </Stack>
               <Stack direction="row" alignItems="center" gap="12px">
@@ -91,7 +94,7 @@ const MapLegend = ({
                 <MapDefaultMarker type="custom" color={colors[1]} isLegend />
                 <h1 className={styles.drawerSubTitle}>
                   {analyzeParam === "year"
-                    ? "10 - 20 лет"
+                    ? "От 10 до 20 лет"
                     : "От 10 до 14 этажей"}
                 </h1>
               </Stack>
@@ -100,7 +103,7 @@ const MapLegend = ({
                 <MapDefaultMarker type="custom" color={colors[3]} isLegend />
                 <h1 className={styles.drawerSubTitle}>
                   {" "}
-                  {analyzeParam === "year" ? "Выше 20 лет" : "Выше 14 этажей"}
+                  {analyzeParam === "year" ? "Старше 20 лет" : "Выше 14 этажей"}
                 </h1>
               </Stack>
             </Box>
@@ -112,12 +115,7 @@ const MapLegend = ({
             }}
           >
             {" "}
-            <h2 className={styles.drawerTitle}>
-              Отчёт по маршруту
-            </h2>
-            <h1 className={styles.drawerSubTitle} style={{
-              marginTop: '16px'
-            }}>{routingData}</h1>
+            <h2 className={styles.drawerTitle}>{routingData}</h2>
           </Stack>
         )}
       </Stack>

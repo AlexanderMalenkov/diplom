@@ -55,7 +55,7 @@ export const AdvertisementModal = ({
                   sx={{
                     width: "111px",
                     height: "111px",
-                    backgroundImage: `url(${item?.imgUrl})`,
+                    backgroundImage: `url(${item?.img_url})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     borderRadius: "5px",
@@ -92,7 +92,7 @@ export const AdvertisementModal = ({
                     </span>
                   </h1>
                   <DefaultButton sx={{ color: "black" }} onClick={() => {
-                    window.open(item?.originalUrl)
+                    window.open(item?.original_url)
                   }}>
                     Перейти к объявлению
                   </DefaultButton>

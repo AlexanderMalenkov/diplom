@@ -10,7 +10,7 @@
   .drawer {
     position: absolute;
     z-index: 1000;
-    height: 50vh;
+    /* height: 50vh; */
     left: 12px;
     top: 12px;
     width: 350px;
